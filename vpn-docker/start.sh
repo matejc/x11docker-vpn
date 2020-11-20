@@ -2,8 +2,8 @@
 
 set -xe
 
-sudo protonvpn connect --fastest
+sudo protonvpn connect $1
 
-"$@"
+"${@:2}"
 
 sudo protonvpn disconnect

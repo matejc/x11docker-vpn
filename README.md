@@ -8,7 +8,7 @@ Only that browser's data will be routed through VPN, useful when you do not want
 
 ### Build
 
-    $ sudo -E docker build -t vpn ./vpn/x11-vpn/
+    $ sudo -E docker build -t vpn ./vpn-docker
 
 
 ### Run

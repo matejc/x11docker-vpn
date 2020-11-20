@@ -5,6 +5,7 @@
 , postCmd ? "exit 0"
 , startCmd ? "chromium --no-sandbox"
 , extraDeps ? "chromium pulseaudio"
+, vpnArgs ? "--fastest"
 }:
 pkgs.mkShell {
   name = "x11docker-vpn";
@@ -12,7 +13,7 @@ pkgs.mkShell {
   shellHook = ''
     ${sudoCmd} docker build -t x11docker-vpn --build-arg EXTRA_DEPS="${extraDeps}" ${build}
 
-    x11docker ${args} --share /dev/net/tun --sudouser --user=RETAIN -- --cap-add=NET_ADMIN -- x11docker-vpn:latest ${startCmd}
+    x11docker ${args} --share /dev/net/tun --sudouser --user=RETAIN -- --cap-add=NET_ADMIN -- x11docker-vpn:latest "${vpnArgs}" ${startCmd}
 
     ${postCmd}
   '';
