@@ -6,6 +6,12 @@ Only that browser's data will be routed through VPN, useful when you do not want
 
 ## Usage
 
+### Requirements
+
+- Docker
+- x11docker
+
+
 ### Build
 
     $ sudo -E docker build -t vpn ./vpn-docker
@@ -18,4 +24,13 @@ Only that browser's data will be routed through VPN, useful when you do not want
 
 ## Usage for Nix users
 
+### Requirements
+
+- Docker
+- Nix
+
+
+### Run
+
     $ nix-shell
+
