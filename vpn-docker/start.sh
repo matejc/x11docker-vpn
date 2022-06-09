@@ -2,8 +2,8 @@
 
 set -xe
 
-sudo protonvpn connect $1
+su -c "openvpn /home/user/vpn/"
 
-"${@:2}"
+"$@"
 
-sudo protonvpn disconnect
+su -c "pkill openvpn"

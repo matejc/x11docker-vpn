@@ -1,17 +1,19 @@
 FROM x11docker/xfce
 
-ARG EXTRA_DEPS
+RUN apt-get update -y && apt-get install -y gpg wget
+
+RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
+RUN wget -O- https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor > /etc/apt/trusted.gpg.d/google.gpg
 
 RUN apt-get update -y
-RUN apt-get install -y openvpn dialog python3-pip python3-setuptools sudo procps
-RUN pip3 install protonvpn-cli
+RUN apt-get install -y openvpn procps google-chrome-stable
 
-RUN apt-get install -y $EXTRA_DEPS
-
-RUN echo "%users  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/users
+RUN echo 'user:*:1000:100::/home/user:/bin/sh' >>/etc/passwd
+RUN sed -i 's|root:.*|root:\*:0:0::/root:/bin/sh|' /etc/passwd
 
 COPY start.sh /bin/start.sh
 
 RUN chmod +x /bin/start.sh
-
-ENTRYPOINT ["/bin/start.sh"]
+USER user
+WORKDIR /home/user
+ENTRYPOINT [ "/bin/start.sh" ]
